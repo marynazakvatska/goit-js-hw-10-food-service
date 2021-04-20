@@ -12,7 +12,6 @@ const refs = {
   checkboxEl: document.querySelector("#theme-switch-toggle"),
   body: document.querySelector("body"),
   menu: document.querySelector(".js-menu"),
-  track: document.querySelector(".theme-switch__track"),
 };
 /* Добавь функционал изменения темы при нажатии (событие change) на чекбокс #theme-switch-toggle в тулбаре.
 
@@ -25,19 +24,20 @@ const refs = {
 
 refs.checkboxEl.addEventListener("change", onChangeTheme);
 function onChangeTheme(e) {
-  e.preventDefault();
+  /* e.preventDefault(); */
   console.log(e.currentTarget.checked);
 
-  const light = refs.body.classList.add(Theme.LIGHT);
+  /* localStorage.removeItem("dark-theme"); */
 
-  localStorage.removeItem("darkBody");
   refs.body.classList.replace(Theme.DARK, Theme.LIGHT);
-  localStorage.setItem("theme", light);
+  const light = refs.body.classList.add(Theme.LIGHT);
+  localStorage.setItem("theme", JSON.stringify("light-theme", light));
 
   if (e.currentTarget.checked) {
     const dark = refs.body.classList.replace(Theme.LIGHT, Theme.DARK);
     e.target.checked = "true";
-    localStorage.setItem("theme", dark);
+
+    localStorage.setItem("theme", JSON.stringify("dark-theme", dark));
   }
 }
 
