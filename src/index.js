@@ -24,18 +24,19 @@ const refs = {
 
 refs.checkboxEl.addEventListener("change", onChangeTheme);
 function onChangeTheme(e) {
-  /* e.preventDefault(); */
+  e.preventDefault();
   console.log(e.currentTarget.checked);
 
   /* localStorage.removeItem("dark-theme"); */
+  const light = refs.body.classList.add(Theme.LIGHT);
 
   refs.body.classList.replace(Theme.DARK, Theme.LIGHT);
-  const light = refs.body.classList.add(Theme.LIGHT);
+
   localStorage.setItem("theme", JSON.stringify("light-theme", light));
 
   if (e.currentTarget.checked) {
+    e.currentTarget.checked = "true";
     const dark = refs.body.classList.replace(Theme.LIGHT, Theme.DARK);
-    e.target.checked = "true";
 
     localStorage.setItem("theme", JSON.stringify("dark-theme", dark));
   }
