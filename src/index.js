@@ -1,5 +1,6 @@
 import menuCardTemplate from "./template.hbs";
 import cards from "./menu.js";
+import "./styles.css";
 
 console.log(localStorage);
 
@@ -22,23 +23,30 @@ const refs = {
 у чекбокса #theme -switch-toggle в true, чтобы ползунок сдвинулся в правильное положение.
  */
 
+/* const light = refs.body.classList.add(Theme.LIGHT); */
+
+refs.body.classList.add(
+  localStorage.getItem("theme") === null
+    ? Theme.LIGHT
+    : localStorage.getItem("theme")
+);
+document.querySelector(".theme-switch__toggle").checked =
+  localStorage.getItem("theme") === Theme.DARK;
+
 refs.checkboxEl.addEventListener("change", onChangeTheme);
 function onChangeTheme(e) {
   e.preventDefault();
   console.log(e.currentTarget.checked);
+  if (refs.body.classList.contains(Theme.DARK)) {
+    refs.body.classList.replace(Theme.DARK, Theme.LIGHT);
+  }
 
-  /* localStorage.removeItem("dark-theme"); */
-  const light = refs.body.classList.add(Theme.LIGHT);
-
-  refs.body.classList.replace(Theme.DARK, Theme.LIGHT);
-
-  localStorage.setItem("theme", JSON.stringify("light-theme", light));
+  localStorage.setItem("theme", Theme.LIGHT);
 
   if (e.currentTarget.checked) {
-    e.currentTarget.checked = "true";
-    const dark = refs.body.classList.replace(Theme.LIGHT, Theme.DARK);
+    refs.body.classList.replace(Theme.LIGHT, Theme.DARK);
 
-    localStorage.setItem("theme", JSON.stringify("dark-theme", dark));
+    localStorage.setItem("theme", Theme.DARK);
   }
 }
 
@@ -55,3 +63,32 @@ function createMenuCardMarkup(cards) {
 }
 console.log(createMenuCardMarkup(cards));
 refs.menu.insertAdjacentHTML("afterbegin", createMenuCardMarkup(cards));
+
+/* 
+const themeSwitch = document.querySelector('.theme-switch__toggle');
+console.log(themeSwitch)
+themeSwitch.addEventListener('click', onThemeSwitch)
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+}; function onThemeSwitch(e) {
+  document.body.classList.toggle(Theme.LIGHT);
+  document.body.classList.toggle(Theme.DARK);
+  const switchOn = e.target.checked
+  // console.log(switchOn)
+  localStorage.setItem('swiched', switchOn)
+  if (document.body.classList.contains(Theme.LIGHT)) {
+    localStorage.setItem('theme', Theme.LIGHT);
+  }
+  if (document.body.classList.contains(Theme.DARK)) {
+    localStorage.setItem('theme', Theme.DARK);
+  }
+} const savedTheme = localStorage.getItem('theme')// const savedTheme = localStorage.getItem('theme')
+const themeOn = JSON.parse(localStorage.getItem('swiched'))
+themeSwitch.checked = themeOn
+console.log(savedTheme)
+// if (savedTheme !== document.body.classList.add(savedTheme)) { document.body.classList.add(Theme.LIGHT) }function chosenTheme() {
+if (savedTheme) { document.body.classList.add(savedTheme) }
+else { document.body.classList.add(Theme.LIGHT) }
+}
+chosenTheme() */
