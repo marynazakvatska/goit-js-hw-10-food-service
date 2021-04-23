@@ -23,8 +23,6 @@ const refs = {
 у чекбокса #theme -switch-toggle в true, чтобы ползунок сдвинулся в правильное положение.
  */
 
-const light = refs.body.classList.add(Theme.LIGHT);
-
 refs.body.classList.add(
   localStorage.getItem("theme") === null
     ? Theme.LIGHT
@@ -39,11 +37,8 @@ function onChangeTheme(e) {
   /*  console.log(e.currentTarget.checked); */
   if (refs.body.classList.contains(Theme.DARK)) {
     refs.body.classList.replace(Theme.DARK, Theme.LIGHT);
-  }
-
-  localStorage.setItem("theme", Theme.LIGHT);
-
-  if (refs.checkboxEl.checked) {
+    localStorage.setItem("theme", Theme.LIGHT);
+  } else {
     refs.body.classList.replace(Theme.LIGHT, Theme.DARK);
 
     localStorage.setItem("theme", Theme.DARK);
