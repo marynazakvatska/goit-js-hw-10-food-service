@@ -23,7 +23,7 @@ const refs = {
 у чекбокса #theme -switch-toggle в true, чтобы ползунок сдвинулся в правильное положение.
  */
 
-/* const light = refs.body.classList.add(Theme.LIGHT); */
+const light = refs.body.classList.add(Theme.LIGHT);
 
 refs.body.classList.add(
   localStorage.getItem("theme") === null
@@ -36,14 +36,14 @@ document.querySelector(".theme-switch__toggle").checked =
 refs.checkboxEl.addEventListener("change", onChangeTheme);
 function onChangeTheme(e) {
   e.preventDefault();
-  console.log(e.currentTarget.checked);
+  /*  console.log(e.currentTarget.checked); */
   if (refs.body.classList.contains(Theme.DARK)) {
     refs.body.classList.replace(Theme.DARK, Theme.LIGHT);
   }
 
   localStorage.setItem("theme", Theme.LIGHT);
 
-  if (e.currentTarget.checked) {
+  if (refs.checkboxEl.checked) {
     refs.body.classList.replace(Theme.LIGHT, Theme.DARK);
 
     localStorage.setItem("theme", Theme.DARK);
@@ -63,32 +63,3 @@ function createMenuCardMarkup(cards) {
 }
 console.log(createMenuCardMarkup(cards));
 refs.menu.insertAdjacentHTML("afterbegin", createMenuCardMarkup(cards));
-
-/* 
-const themeSwitch = document.querySelector('.theme-switch__toggle');
-console.log(themeSwitch)
-themeSwitch.addEventListener('click', onThemeSwitch)
-const Theme = {
-  LIGHT: 'light-theme',
-  DARK: 'dark-theme',
-}; function onThemeSwitch(e) {
-  document.body.classList.toggle(Theme.LIGHT);
-  document.body.classList.toggle(Theme.DARK);
-  const switchOn = e.target.checked
-  // console.log(switchOn)
-  localStorage.setItem('swiched', switchOn)
-  if (document.body.classList.contains(Theme.LIGHT)) {
-    localStorage.setItem('theme', Theme.LIGHT);
-  }
-  if (document.body.classList.contains(Theme.DARK)) {
-    localStorage.setItem('theme', Theme.DARK);
-  }
-} const savedTheme = localStorage.getItem('theme')// const savedTheme = localStorage.getItem('theme')
-const themeOn = JSON.parse(localStorage.getItem('swiched'))
-themeSwitch.checked = themeOn
-console.log(savedTheme)
-// if (savedTheme !== document.body.classList.add(savedTheme)) { document.body.classList.add(Theme.LIGHT) }function chosenTheme() {
-if (savedTheme) { document.body.classList.add(savedTheme) }
-else { document.body.classList.add(Theme.LIGHT) }
-}
-chosenTheme() */
